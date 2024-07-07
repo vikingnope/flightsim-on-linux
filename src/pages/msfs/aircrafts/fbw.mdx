@@ -1,0 +1,86 @@
+import { Callout } from 'nextra/components';
+import { Steps } from 'nextra-theme-docs';
+
+# FlyByWire Installer
+
+FlyByWire is the pioneer of freeware in Flight Simulator, most known for their A32NX project and the upcoming A380X.
+
+
+## Installation
+
+<Callout type="info" emoji="ℹ️">
+  **Difficulty:** Easy
+</Callout>
+
+This installation guide will help you install their installer which has been made to install and update their aircraft.
+
+<Steps>
+
+### Run the installer
+
+Download the [installer](https://flybywiresim.com/) and then run it normally via [Protontricks](/msfs/protontricks).
+
+Once the installer has completed, the FlyByWire Installer will open up; this can be used normally.
+
+### (Optional) Create a Desktop Entry for PMDG Operations Center
+
+Creating a [desktop entry](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html)
+should make opening FlyByWire Installer easier as you will not have to find the location manually each time.
+
+These files will go into `~/.local/share/applications/`, but you can create multiple directories inside it to make it
+easier to manage your custom Desktop Entries that you manually created. For example on my system, I stored this entry
+under
+
+```
+~/.local/share/applications/
+```
+
+Create a Desktop Entry inside a location specified above, with a text editor of your choice. The name of the file is
+irrelevant as long as it has the `.desktop` extension.
+
+```desktop copy filename="flybywire-installer.desktop"
+[Desktop Entry]
+Name=FlyByWire Installer
+Exec=protontricks -c "wine C:/users/steamuser/AppData/Local/Programs/fbw-installer/FlyByWire\\ Installer.exe" 1250410
+Type=Application
+StartupNotify=true
+Categories=Game;Simulation;
+```
+
+Then make sure to update the database for desktop entries by running this command in the terminal
+
+```shell copy
+update-desktop-database ~/.local/share/applications
+```
+
+You should now be able to find FlyByWire Installer in your Desktop Environment's application launcher.
+
+### (Optional) Add icon to Desktop Entry
+
+Adding an icon is quite easy, we just have some extra steps on what we have already done.
+
+First we need to go to this location:
+
+```
+<your drive>/SteamLibrary/steamapps/compatdata/1250410/pfx/drive_c/users/steamuser/AppData/Local/Programs/fbw-installer/resources/extraResources/
+```
+
+Here you will find a copy of the `icon.ico` file containing the FlyByWire Installer icon.
+
+Sadly this will not work on Linux and we will have to convert it into a png file.
+
+To do that, you need to install ImageMagick, and then run this command in the same location mentioned above:
+
+```
+convert icon.ico icon.png
+```
+
+After we have done that, you just have to edit your `flybywire-installer.desktop` file by adding this line:
+
+```
+Icon=<your drive>/SteamLibrary/steamapps/compatdata/1250410/pfx/drive_c/users/steamuser/AppData/Local/Programs/fbw-installer/resources/extraResources/icon.png
+```
+
+</Steps>
+
+The aircraft and FlyByWire Installer should work on Linux now. Enjoy flying your aircraft in the simulator!
